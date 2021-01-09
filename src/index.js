@@ -13,11 +13,17 @@ import burgerBuilderReducer from './store/reducers/burgerBuilderReducer';
 import orderFormReducer from "./store/reducers/orderFormReducer";
 import authReducer from "./store/reducers/authReducer";
 
+// Using redux-saga
+import createSagaMiddleware from 'redux-saga';
+import {logOutSaga} from "./store/sagas/auth";
+
 const rootReducer = combineReducers({
     burgerBuilder: burgerBuilderReducer,
     orderForm: orderFormReducer,
     auth: authReducer
 });
+
+const sagaMiddleware = createSagaMiddleware();
 
 // Declared the store, using redux Devtools (no middlewares yet):
 // const store = createStore(burgerBuilderReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
@@ -27,7 +33,12 @@ const rootReducer = combineReducers({
 const composeEnhancers = (process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null) || compose;
 // const store = createStore(burgerBuilderReducer, composeEnhancers(applyMiddleware(thunk)));
 // Combining both reducers:
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+// const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+// Using also the redux-saga package (registering also the sagaMiddleware on the store):
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, sagaMiddleware)));
+
+// Running my saga, using the sagaMiddleware already registered on the store:
+sagaMiddleware.run(logOutSaga);
 
 const app = (
     <Provider store={store}>
