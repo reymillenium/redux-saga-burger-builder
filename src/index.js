@@ -15,7 +15,8 @@ import authReducer from "./store/reducers/authReducer";
 
 // Using redux-saga
 import createSagaMiddleware from 'redux-saga';
-import {logOutSaga} from "./store/sagas/auth";
+// import {logOutSaga} from "./store/sagas/authSagas";
+import {watchAuth} from "./store/sagas/index";
 
 const rootReducer = combineReducers({
     burgerBuilder: burgerBuilderReducer,
@@ -38,7 +39,9 @@ const composeEnhancers = (process.env.NODE_ENV === 'development' ? window.__REDU
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, sagaMiddleware)));
 
 // Running my saga, using the sagaMiddleware already registered on the store:
-sagaMiddleware.run(logOutSaga);
+// sagaMiddleware.run(logOutSaga);
+
+sagaMiddleware.run(watchAuth);
 
 const app = (
     <Provider store={store}>

@@ -36,12 +36,13 @@ export const checkAuthTimeOut = (expirationTime) => {
 };
 
 export const logOut = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
-    localStorage.removeItem('localId');
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('expirationDate');
+    // localStorage.removeItem('localId');
 
     return {
-        type: actionTypes.AUTH_LOG_OUT
+        // type: actionTypes.AUTH_LOG_OUT
+        type: actionTypes.AUTH_INITIATE_LOGOUT
     }
 };
 
@@ -92,7 +93,7 @@ export const authCheckState = () => {
     return dispatch => {
         const token = localStorage.getItem('token');
         if (!token) { // There is no token
-            // dispatch(logOut());
+            dispatch(logOut());
         } else { // The token exists, but lets check the expiration date...
             const expirationDate = new Date(localStorage.getItem('expirationDate'));
             if (expirationDate >= new Date()) { // All good yet
@@ -103,7 +104,7 @@ export const authCheckState = () => {
                 const expiresIn = Math.abs(expirationDate - new Date()) / 1000;
                 dispatch(checkAuthTimeOut(expiresIn));
             } else { // Our token has expired
-                // dispatch(logOut());
+                dispatch(logOut());
             }
         }
     }
