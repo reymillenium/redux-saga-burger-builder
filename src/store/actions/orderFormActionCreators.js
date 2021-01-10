@@ -31,19 +31,27 @@ export const purchaseBurgerStart = () => {
 // Asynchronous Action creator:
 // This is the action we dispatch from the container once we click that 'Order' button
 export const purchaseBurger = (order, token) => {
-    // Using the redux-thunk middleware
-    return dispatch => {
-        dispatch(purchaseBurgerStart());
-        axios.post('/orders.json?auth=' + token, order)
-            .then(response => {
-                // this.setState({loading: false});
-                // this.props.history.push('/');
-                dispatch(purchaseBurgerSuccess(response.data.name, order));
-                // history.push('/');
-            }).catch(error => {
-            // this.setState({loading: false});
-            dispatch(purchaseBurgerFail(error));
-        });
+    // // Using the redux-thunk middleware
+    // return dispatch => {
+    //     dispatch(purchaseBurgerStart());
+    //     axios.post('/orders.json?auth=' + token, order)
+    //         .then(response => {
+    //             // this.setState({loading: false});
+    //             // this.props.history.push('/');
+    //             dispatch(purchaseBurgerSuccess(response.data.name, order));
+    //             // history.push('/');
+    //         }).catch(error => {
+    //         // this.setState({loading: false});
+    //         dispatch(purchaseBurgerFail(error));
+    //     });
+    // }
+
+    return {
+        type: actionTypes.PURCHASE_BURGER,
+        payload: {
+            order: order,
+            token: token
+        }
     }
 };
 

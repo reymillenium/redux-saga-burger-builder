@@ -12,6 +12,10 @@ import {
     fetchInitialIngredientsSaga
 } from './burgerBuilderSagas';
 
+import {
+    purchaseBurgerSaga
+} from './orderFormSagas';
+
 export function* watchAuth(action) {
     yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logOutSaga);
     yield takeEvery(actionTypes.AUTH_CHECK_TIME_OUT, checkAuthTimeOutSaga);
@@ -21,4 +25,8 @@ export function* watchAuth(action) {
 
 export function* watchBurgerBuilder(action) {
     yield takeEvery(actionTypes.FETCH_INITIAL_INGREDIENTS, fetchInitialIngredientsSaga);
+}
+
+export function* watchOrderForm(action) {
+    yield takeEvery(actionTypes.PURCHASE_BURGER, purchaseBurgerSaga);
 }
