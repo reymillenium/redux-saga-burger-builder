@@ -61,36 +61,45 @@ export const checkAuthTimeOut = (expirationTime) => {
 };
 
 export const auth = (email, password, isSignUp) => {
-    const apiKey = process.env.REACT_APP_API_KEY;
-    // const signInWithCustomTokenEndPoint = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${apiKey}`;
-    const signUpWithEmailAndPasswordEndPoint = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`;
-    const signInWithEmailAndPasswordEndPoint = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
-    let endPointURL = isSignUp ? signUpWithEmailAndPasswordEndPoint : signInWithEmailAndPasswordEndPoint;
+    // const apiKey = process.env.REACT_APP_API_KEY;
+    // // const signInWithCustomTokenEndPoint = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${apiKey}`;
+    // const signUpWithEmailAndPasswordEndPoint = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`;
+    // const signInWithEmailAndPasswordEndPoint = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
+    // let endPointURL = isSignUp ? signUpWithEmailAndPasswordEndPoint : signInWithEmailAndPasswordEndPoint;
+    //
+    // return dispatch => {
+    //     dispatch(authStart());
+    //     const authData = {
+    //         email: email,
+    //         password: password,
+    //         returnSecureToken: true
+    //     }
+    //
+    //     axios.post(endPointURL, authData)
+    //         .then(response => {
+    //             const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
+    //             localStorage.setItem('token', response.data.idToken);
+    //             localStorage.setItem('expirationDate', expirationDate);
+    //             localStorage.setItem('localId', response.data.localId);
+    //
+    //             dispatch(authSuccess(response.data.idToken, response.data.localId));
+    //             dispatch(checkAuthTimeOut(response.data.expiresIn));
+    //         })
+    //         .catch(error => {
+    //                 //  The received error is an object from axios (that wraps the response), but we need the error from Firebase:
+    //                 dispatch(authFail(error.response.data.error));
+    //             }
+    //         );
+    // };
 
-    return dispatch => {
-        dispatch(authStart());
-        const authData = {
+    return {
+        type: actionTypes.AUTH_USER,
+        payload: {
             email: email,
             password: password,
-            returnSecureToken: true
+            isSignUp: isSignUp
         }
-
-        axios.post(endPointURL, authData)
-            .then(response => {
-                const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-                localStorage.setItem('token', response.data.idToken);
-                localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem('localId', response.data.localId);
-
-                dispatch(authSuccess(response.data.idToken, response.data.localId));
-                dispatch(checkAuthTimeOut(response.data.expiresIn));
-            })
-            .catch(error => {
-                    //  The received error is an object from axios (that wraps the response), but we need the error from Firebase:
-                    dispatch(authFail(error.response.data.error));
-                }
-            );
-    };
+    }
 };
 
 export const setAuthRedirectPath = (authRedirectPath) => {

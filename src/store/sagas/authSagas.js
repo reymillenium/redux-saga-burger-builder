@@ -1,6 +1,7 @@
 // put is a function. It will dispatch a new action
 // delay: It delays the execution of the next step:
 import {put, delay} from 'redux-saga/effects';
+import axios from 'axios';
 
 // import * as actionTypes from "../actions/actionTypes";
 import * as actionCreators from "./../actions/index";
@@ -25,4 +26,36 @@ export function* logOutSaga(action) {
 export function* checkAuthTimeOutSaga(action) {
     yield delay(action.payload.expirationTime * 1000);
     yield put(actionCreators.logOut());
+}
+
+export function* authUserSaga(action) {
+    const apiKey = process.env.REACT_APP_API_KEY;
+    // const signInWithCustomTokenEndPoint = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${apiKey}`;
+    const signUpWithEmailAndPasswordEndPoint = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`;
+    const signInWithEmailAndPasswordEndPoint = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
+    let endPointURL = action.payload.isSignUp ? signUpWithEmailAndPasswordEndPoint : signInWithEmailAndPasswordEndPoint;
+
+    yield put(actionCreators.authStart());
+
+    const authData = {
+        email: action.payload.email,
+        password: action.payload.password,
+        returnSecureToken: true
+    }
+
+    try {
+        const response = yield axios.post(endPointURL, authData);
+
+        const expirationDate = yield new Date(new Date().getTime() + response.data.expiresIn * 1000);
+        yield localStorage.setItem('token', response.data.idToken);
+        yield localStorage.setItem('expirationDate', expirationDate.toString());
+        yield localStorage.setItem('localId', response.data.localId);
+
+        yield put(actionCreators.authSuccess(response.data.idToken, response.data.localId));
+        yield put(actionCreators.checkAuthTimeOut(response.data.expiresIn));
+
+    } catch (error) {
+        //  The received error is an object from axios (that wraps the response), but we need the error from Firebase:
+        yield put(actionCreators.authFail(error.response.data.error));
+    }
 }
