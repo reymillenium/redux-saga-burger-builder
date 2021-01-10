@@ -1,12 +1,20 @@
+// *************************************************
+// *         * * * Burger Builder * * *            *
+// *************************************************
+
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const REMOVE_INGREDIENT = 'REMOVE_INGREDIENT';
 export const SET_INGREDIENTS = 'SET_INGREDIENTS';
 export const FETCH_INGREDIENTS_FAILED = 'FETCH_INGREDIENTS_FAILED';
 
-// With redux-saga
+// With redux-saga (has side effects)
 export const FETCH_INITIAL_INGREDIENTS = 'FETCH_INITIAL_INGREDIENTS';
 
-// With redux-saga
+// *************************************************
+// *           * * * Order Form * * *              *
+// *************************************************
+
+// With redux-saga (has side effects)
 export const PURCHASE_BURGER = 'PURCHASE_BURGER';
 
 export const PURCHASE_BURGER_START = 'PURCHASE_BURGER_START';
@@ -16,13 +24,18 @@ export const PURCHASE_BURGER_FAIL = 'PURCHASE_BURGER_FAIL';
 // Will be dispatched whenever we load the Checkout page:
 export const PURCHASE_INIT = 'PURCHASE_INIT';
 
-// With redux-saga
+// With redux-saga (has side effects)
 export const FETCH_ORDERS = 'FETCH_ORDERS';
 
 export const FETCH_ORDERS_START = 'FETCH_ORDERS_START';
 export const FETCH_ORDERS_SUCCESS = 'FETCH_ORDERS_SUCCESS';
 export const FETCH_ORDERS_FAIL = 'FETCH_ORDERS_FAIL';
 
+// *************************************************
+// *              * * * Auth * * *                 *
+// *************************************************
+
+// With redux-saga (has side effects)
 export const AUTH_CHECK_TIME_OUT = 'AUTH_CHECK_TIME_OUT';
 export const AUTH_USER = 'AUTH_USER';
 export const AUTH_CHECK_STATE = 'AUTH_CHECK_STATE';
@@ -31,6 +44,8 @@ export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOG_OUT = 'AUTH_LOG_OUT';
+
+// With redux-saga (has side effects)
 export const AUTH_INITIATE_LOGOUT = 'AUTH_INITIATE_LOGOUT';
 
-export const SET_AUTH_REDIRECT_PATH= 'SET_AUTH_REDIRECT_PATH';
+export const SET_AUTH_REDIRECT_PATH = 'SET_AUTH_REDIRECT_PATH';
