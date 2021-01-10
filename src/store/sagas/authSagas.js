@@ -1,7 +1,8 @@
 // put is a function. It will dispatch a new action
 import {put} from 'redux-saga/effects';
 
-import * as actionTypes from "../actions/actionTypes";
+// import * as actionTypes from "../actions/actionTypes";
+import * as actionCreators from "./../actions/index";
 
 // The * symbol turns the function into a generator (Next gen JavaScript features)
 // Function that can be executed incrementally. Yo can call them and they dont't start from start to end immediately,
@@ -13,8 +14,9 @@ export function* logOutSaga(action) {
     yield localStorage.removeItem('token');
     yield localStorage.removeItem('expirationDate');
     yield localStorage.removeItem('localId');
-
-    yield put({
-        type: actionTypes.AUTH_LOG_OUT
-    });
+    // Hard-coding
+    // yield put({
+    //     type: actionTypes.AUTH_LOG_OUT
+    // });
+    yield put(actionCreators.logOutSucceed());
 }
