@@ -21,7 +21,7 @@ export function* fetchOrdersSaga(action) {
     try {
         const response = yield axios.get('/orders.json' + queryParams)
         const fetchedOrders = [];
-        // Transforms the orders in array format
+        // Transforms the orders into an array format
         for (let key in response.data) {
             fetchedOrders.push({
                 // Gets all the fields in the js object and then adds a new one (id)
