@@ -4,11 +4,13 @@ import * as actionTypes from './../actions/actionTypes';
 import {
     logOutSaga,
     checkAuthTimeOutSaga,
-    authUserSaga
+    authUserSaga,
+    authCheckStateSaga
 } from './authSagas';
 
 export function* watchAuth(action) {
     yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logOutSaga);
     yield takeEvery(actionTypes.AUTH_CHECK_TIME_OUT, checkAuthTimeOutSaga);
     yield takeEvery(actionTypes.AUTH_USER, authUserSaga);
+    yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga);
 }

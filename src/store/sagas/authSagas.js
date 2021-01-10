@@ -5,6 +5,7 @@ import axios from 'axios';
 
 // import * as actionTypes from "../actions/actionTypes";
 import * as actionCreators from "./../actions/index";
+import {authSuccess, checkAuthTimeOut, logOut} from "./../actions/index";
 
 // The * symbol turns the function into a generator (Next gen JavaScript features)
 // Function that can be executed incrementally. Yo can call them and they dont't start from start to end immediately,
@@ -57,5 +58,22 @@ export function* authUserSaga(action) {
     } catch (error) {
         //  The received error is an object from axios (that wraps the response), but we need the error from Firebase:
         yield put(actionCreators.authFail(error.response.data.error));
+    }
+}
+
+export function* authCheckStateSaga(action) {
+    const token = yield localStorage.getItem('token');
+    if (!token) { // There is no token
+        yield put(actionCreators.logOut());
+    } else { // The token exists, but lets check the expiration date...
+        const expirationDate = yield new Date(localStorage.getItem('expirationDate'));
+        if (expirationDate >= new Date()) { // All good yet
+            const localId = yield localStorage.getItem('localId');
+            yield put(actionCreators.authSuccess(token, localId));
+            const expiresIn = yield Math.abs(expirationDate - new Date()) / 1000;
+            yield put(actionCreators.checkAuthTimeOut(expiresIn));
+        } else { // Our token has expired
+            yield put(actionCreators.logOut());
+        }
     }
 }

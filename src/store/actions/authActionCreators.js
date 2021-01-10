@@ -92,6 +92,7 @@ export const auth = (email, password, isSignUp) => {
     //         );
     // };
 
+    // Using sagas
     return {
         type: actionTypes.AUTH_USER,
         payload: {
@@ -113,23 +114,28 @@ export const setAuthRedirectPath = (authRedirectPath) => {
 
 // Pure utility action creator, that dispatches other actions depending of our current state:
 export const authCheckState = () => {
-    return dispatch => {
-        const token = localStorage.getItem('token');
-        if (!token) { // There is no token
-            dispatch(logOut());
-        } else { // The token exists, but lets check the expiration date...
-            const expirationDate = new Date(localStorage.getItem('expirationDate'));
-            if (expirationDate >= new Date()) { // All good yet
-                const localId = localStorage.getItem('localId');
-                dispatch(authSuccess(token, localId));
+    // return dispatch => {
+    //     const token = localStorage.getItem('token');
+    //     if (!token) { // There is no token
+    //         dispatch(logOut());
+    //     } else { // The token exists, but lets check the expiration date...
+    //         const expirationDate = new Date(localStorage.getItem('expirationDate'));
+    //         if (expirationDate >= new Date()) { // All good yet
+    //             const localId = localStorage.getItem('localId');
+    //             dispatch(authSuccess(token, localId));
+    //
+    //             // const expiresIn = (expirationDate.getTime() - new Date().getTime()) / 1000;
+    //             const expiresIn = Math.abs(expirationDate - new Date()) / 1000;
+    //             dispatch(checkAuthTimeOut(expiresIn));
+    //         } else { // Our token has expired
+    //             dispatch(logOut());
+    //         }
+    //     }
+    // }
 
-                // const expiresIn = (expirationDate.getTime() - new Date().getTime()) / 1000;
-                const expiresIn = Math.abs(expirationDate - new Date()) / 1000;
-                dispatch(checkAuthTimeOut(expiresIn));
-            } else { // Our token has expired
-                dispatch(logOut());
-            }
-        }
+    // Using sagas
+    return {
+        type: actionTypes.AUTH_CHECK_STATE
     }
 };
 
