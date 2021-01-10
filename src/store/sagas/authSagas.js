@@ -5,7 +5,6 @@ import axios from 'axios';
 
 // import * as actionTypes from "../actions/actionTypes";
 import * as actionCreators from "./../actions/index";
-import {authSuccess, checkAuthTimeOut, logOut} from "./../actions/index";
 
 // The * symbol turns the function into a generator (Next gen JavaScript features)
 // Function that can be executed incrementally. Yo can call them and they dont't start from start to end immediately,

@@ -1,11 +1,10 @@
 // burgerBuilderActionCreators
-import {authSuccess, checkAuthTimeOut} from "./authActionCreators";
-
 export {
     addIngredient,
     removeIngredient,
     fetchInitialIngredients,
-    fetchIngredientsFailed
+    fetchIngredientsFailed,
+    setIngredients
 } from "./burgerBuilderActionCreators";
 
 // orderFormActionCreators
