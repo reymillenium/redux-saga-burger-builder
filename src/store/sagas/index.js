@@ -13,7 +13,8 @@ import {
 } from './burgerBuilderSagas';
 
 import {
-    purchaseBurgerSaga
+    purchaseBurgerSaga,
+    fetchOrdersSaga
 } from './orderFormSagas';
 
 export function* watchAuth(action) {
@@ -29,4 +30,5 @@ export function* watchBurgerBuilder(action) {
 
 export function* watchOrderForm(action) {
     yield takeEvery(actionTypes.PURCHASE_BURGER, purchaseBurgerSaga);
+    yield takeEvery(actionTypes.FETCH_ORDERS, fetchOrdersSaga);
 }

@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-orders';
+// import axios from '../../axios-orders';
 
 // Synchronous Action creator:
 export const purchaseBurgerSuccess = (orderID, order) => {
@@ -88,28 +88,36 @@ export const fetchOrdersStart = () => {
 };
 
 export const fetchOrders = (token, userId) => {
-    // Using the redux-thunk middleware
-    return dispatch => {
-        dispatch(fetchOrdersStart());
-        // const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
-        const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
-        // axios.get('/orders.json?auth=' + token)
-        axios.get('/orders.json' + queryParams)
-            .then(response => {
-                const fetchedOrders = [];
+    // // Using the redux-thunk middleware
+    // return dispatch => {
+    //     dispatch(fetchOrdersStart());
+    //     // const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
+    //     const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
+    //     // axios.get('/orders.json?auth=' + token)
+    //     axios.get('/orders.json' + queryParams)
+    //         .then(response => {
+    //             const fetchedOrders = [];
+    //
+    //             // Transforms the orders in array format
+    //             for (let key in response.data) {
+    //                 fetchedOrders.push({
+    //                     // Gets all the fields in the js object and then adds a new one (id)
+    //                     ...response.data[key],
+    //                     id: key
+    //                 });
+    //             }
+    //             dispatch(fetchOrdersSuccess(fetchedOrders));
+    //         })
+    //         .catch(error => {
+    //             dispatch(fetchOrdersFail(error));
+    //         });
+    // };
 
-                // Transforms the orders in array format
-                for (let key in response.data) {
-                    fetchedOrders.push({
-                        // Gets all the fields in the js object and then adds a new one (id)
-                        ...response.data[key],
-                        id: key
-                    });
-                }
-                dispatch(fetchOrdersSuccess(fetchedOrders));
-            })
-            .catch(error => {
-                dispatch(fetchOrdersFail(error));
-            });
-    };
+    return {
+        type: actionTypes.FETCH_ORDERS,
+        payload: {
+            token: token,
+            userId: userId
+        }
+    }
 };

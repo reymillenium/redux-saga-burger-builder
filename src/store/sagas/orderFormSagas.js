@@ -12,3 +12,25 @@ export function* purchaseBurgerSaga(action) {
         yield put(actionCreators.purchaseBurgerFail(error));
     }
 }
+
+export function* fetchOrdersSaga(action) {
+    yield put(actionCreators.fetchOrdersStart());
+    const queryParams = yield `?auth=${action.payload.token}&orderBy="userId"&equalTo="${action.payload.userId}"`;
+    const response = yield axios.get('/orders.json' + queryParams)
+
+    try {
+        const fetchedOrders = [];
+        // Transforms the orders in array format
+        for (let key in response.data) {
+            fetchedOrders.push({
+                // Gets all the fields in the js object and then adds a new one (id)
+                ...response.data[key],
+                id: key
+            });
+        }
+
+        yield put(actionCreators.fetchOrdersSuccess(fetchedOrders));
+    } catch (error) {
+        yield put(actionCreators.fetchOrdersFail(error));
+    }
+}
