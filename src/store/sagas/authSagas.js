@@ -1,5 +1,6 @@
 // put is a function. It will dispatch a new action
-import {put} from 'redux-saga/effects';
+// delay: It delays the execution of the next step:
+import {put, delay} from 'redux-saga/effects';
 
 // import * as actionTypes from "../actions/actionTypes";
 import * as actionCreators from "./../actions/index";
@@ -19,4 +20,9 @@ export function* logOutSaga(action) {
     //     type: actionTypes.AUTH_LOG_OUT
     // });
     yield put(actionCreators.logOutSucceed());
+}
+
+export function* checkAuthTimeOutSaga(action) {
+    yield delay(action.payload.expirationTime * 1000);
+    yield put(actionCreators.logOut());
 }

@@ -44,11 +44,19 @@ export const logOutSucceed = () => {
 };
 
 export const checkAuthTimeOut = (expirationTime) => {
-    // Returns a function that gets dispatch as an argument:
-    return dispatch => {
-        setTimeout(() => {
-            dispatch(logOut());
-        }, expirationTime * 1000);
+    // // Returns a function that gets dispatch as an argument:
+    // return dispatch => {
+    //     setTimeout(() => {
+    //         dispatch(logOut());
+    //     }, expirationTime * 1000);
+    // }
+
+
+    return {
+        type: actionTypes.AUTH_CHECK_TIME_OUT,
+        payload: {
+            expirationTime: expirationTime
+        }
     }
 };
 
