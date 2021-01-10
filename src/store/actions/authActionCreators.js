@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
+// import axios from 'axios';
+// Now we have action creators that only create actions:
 
 export const authStart = () => {
     return {
@@ -113,6 +114,7 @@ export const setAuthRedirectPath = (authRedirectPath) => {
 };
 
 // Pure utility action creator, that dispatches other actions depending of our current state:
+// Will be executed at the time our app starts, to see if we can log the user in automatically
 export const authCheckState = () => {
     // return dispatch => {
     //     const token = localStorage.getItem('token');
