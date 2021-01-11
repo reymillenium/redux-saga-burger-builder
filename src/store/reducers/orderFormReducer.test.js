@@ -109,13 +109,12 @@ describe('OrderFormReducer', () => {
             errors: null
         };
 
-        // Is not storing the error currently (change it?)
         expect(OrderFormReducer(initialState, {
             type: actionTypes.FETCH_ORDERS_START
         })).toEqual(afterFetchOrdersStartState);
     });
 
-    it('should set loading in true when it starts fetching the orders', () => {
+    it('should store the orders when there is success fetching the orders', () => {
         const orders = [
             {
                 "ingredients": {
@@ -209,6 +208,23 @@ describe('OrderFormReducer', () => {
                 orders: orders
             }
         })).toEqual(afterFetchOrdersSuccessState);
+    });
+
+    it('should set loading in false when there is an error fetching the orders', () => {
+        const afterFetchOrdersFailState = {
+            orders: [],
+            loading: false,
+            purchased: false,
+            errors: null
+        };
+
+        // Is not storing the error currently (change it?)
+        expect(OrderFormReducer(initialState, {
+            type: actionTypes.FETCH_ORDERS_FAIL,
+            payload: {
+                error: 'some-error'
+            }
+        })).toEqual(afterFetchOrdersFailState);
     });
 
 });
