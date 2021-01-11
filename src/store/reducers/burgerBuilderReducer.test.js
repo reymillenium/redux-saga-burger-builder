@@ -112,4 +112,17 @@ describe('burgerBuilderReducer', () => {
         })).toEqual(afterSetIngredientsState);
     });
 
+    it('should return a true value on the error field when error fetching the ingredients', () => {
+        const afterFetchIngredientsFailedState = {
+            ingredients: null,
+            totalPrice: 4,
+            error: true,
+            building: false
+        };
+
+        expect(burgerBuilderReducer(initialState, {
+            type: actionTypes.FETCH_INGREDIENTS_FAILED
+        })).toEqual(afterFetchIngredientsFailedState);
+    });
+
 });
