@@ -46,4 +46,42 @@ describe('OrderFormReducer', () => {
         })).toEqual(afterPurchaseBurgerStartState);
     });
 
+    it('should add a new order and set several values when success purchasing a burger', () => {
+        const orderID = "-MQj44W5K8QfwHXn0KwK";
+        const order = {
+            "ingredients": {
+                "bacon": 1,
+                "cheese": 1,
+                "meat": 1,
+                "salad": 1
+            },
+            "price": "6.90",
+            "orderData": {
+                "name": "Reinier Garcia",
+                "street": "101 SW 36th CT APT 807",
+                "zipCode": "33135",
+                "country": "United States",
+                "email": "reymillenium@gmail.com",
+                "deliveryMethod": "fastest"
+            },
+            "userId": "yH5Ib18dsRXquneMgwQZJObUL0E2",
+            "id": "-MQj44W5K8QfwHXn0KwK"
+        }
+
+        const afterPurchaseBurgerStartState = {
+            orders: [order],
+            loading: false,
+            purchased: true,
+            errors: null
+        };
+
+        expect(OrderFormReducer(initialState, {
+            type: actionTypes.PURCHASE_BURGER_SUCCESS,
+            payload: {
+                orderID: orderID,
+                order: order
+            }
+        })).toEqual(afterPurchaseBurgerStartState);
+    });
+
 });
