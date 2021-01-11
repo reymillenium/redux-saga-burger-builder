@@ -33,4 +33,17 @@ describe('OrderFormReducer', () => {
         })).toEqual(afterPurchaseInitState);
     });
 
+    it('should set loading to true when starting to purchase a burger', () => {
+        const afterPurchaseBurgerStartState = {
+            orders: [],
+            loading: true,
+            purchased: false,
+            errors: null
+        };
+
+        expect(OrderFormReducer(initialState, {
+            type: actionTypes.PURCHASE_BURGER_START
+        })).toEqual(afterPurchaseBurgerStartState);
+    });
+
 });
