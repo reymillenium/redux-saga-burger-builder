@@ -115,4 +115,100 @@ describe('OrderFormReducer', () => {
         })).toEqual(afterFetchOrdersStartState);
     });
 
+    it('should set loading in true when it starts fetching the orders', () => {
+        const orders = [
+            {
+                "ingredients": {
+                    "bacon": 0,
+                    "cheese": 0,
+                    "meat": 0,
+                    "salad": 3
+                },
+                "orderData": {
+                    "country": "United States",
+                    "deliveryMethod": "fastest",
+                    "email": "reymillenium@gmail.com",
+                    "name": "Reinier Garcia",
+                    "street": "101 SW 36th CT APT 807",
+                    "zipCode": "33135"
+                },
+                "price": "5.50",
+                "userId": "yH5Ib18dsRXquneMgwQZJObUL0E2",
+                "id": "-MOzpau708ZfjPVFeNs5"
+            },
+            {
+                "ingredients": {
+                    "bacon": 2,
+                    "cheese": 0,
+                    "meat": 0,
+                    "salad": 0
+                },
+                "orderData": {
+                    "country": "United States",
+                    "deliveryMethod": "fastest",
+                    "email": "reymillenium@gmail.com",
+                    "name": "Reinier Garcia",
+                    "street": "101 SW 36th CT APT 807",
+                    "zipCode": "33135"
+                },
+                "price": "5.40",
+                "userId": "yH5Ib18dsRXquneMgwQZJObUL0E2",
+                "id": "-MP8ba97OLYOGyAATsrz"
+            },
+            {
+                "ingredients": {
+                    "bacon": 0,
+                    "cheese": 0,
+                    "meat": 0,
+                    "salad": 3
+                },
+                "orderData": {
+                    "country": "United States",
+                    "deliveryMethod": "fastest",
+                    "email": "reymillenium@gmail.com",
+                    "name": "Reinier Garcia",
+                    "street": "101 SW 36th CT APT 807",
+                    "zipCode": "33135"
+                },
+                "price": "5.50",
+                "userId": "yH5Ib18dsRXquneMgwQZJObUL0E2",
+                "id": "-MP7pumw2JkMtTPLqVx8"
+            },
+            {
+                "ingredients": {
+                    "bacon": 0,
+                    "cheese": 0,
+                    "meat": 0,
+                    "salad": 2
+                },
+                "orderData": {
+                    "country": "United States",
+                    "deliveryMethod": "fastest",
+                    "email": "reymillenium@gmail.com",
+                    "name": "Reinier Garcia",
+                    "street": "101 SW 36th CT APT 807",
+                    "zipCode": "33135"
+                },
+                "price": "5.00",
+                "userId": "yH5Ib18dsRXquneMgwQZJObUL0E2",
+                "id": "-MQeGIUm4DRzKmTrp0_i"
+            }
+        ]
+
+        const afterFetchOrdersSuccessState = {
+            orders: orders,
+            loading: false,
+            purchased: false,
+            errors: null
+        };
+
+        // Is not storing the error currently (change it?)
+        expect(OrderFormReducer(initialState, {
+            type: actionTypes.FETCH_ORDERS_SUCCESS,
+            payload: {
+                orders: orders
+            }
+        })).toEqual(afterFetchOrdersSuccessState);
+    });
+
 });
