@@ -68,7 +68,7 @@ describe('OrderFormReducer', () => {
             "id": "-MQj44W5K8QfwHXn0KwK"
         }
 
-        const afterPurchaseBurgerStartState = {
+        const afterPurchaseBurgerSuccessState = {
             orders: [order],
             loading: false,
             purchased: true,
@@ -81,7 +81,24 @@ describe('OrderFormReducer', () => {
                 orderID: orderID,
                 order: order
             }
-        })).toEqual(afterPurchaseBurgerStartState);
+        })).toEqual(afterPurchaseBurgerSuccessState);
+    });
+
+    it('should store the error when an error is found purchasing a burger', () => {
+        const afterPurchaseBurgerFailsState = {
+            orders: [],
+            loading: false,
+            purchased: false,
+            errors: null
+        };
+
+        // Is not storing the error currently (change it?)
+        expect(OrderFormReducer(initialState, {
+            type: actionTypes.PURCHASE_BURGER_FAIL,
+            payload: {
+                error: 'some-error'
+            }
+        })).toEqual(afterPurchaseBurgerFailsState);
     });
 
 });
