@@ -14,7 +14,8 @@ export const FETCH_INITIAL_INGREDIENTS = 'FETCH_INITIAL_INGREDIENTS';
 // *           * * * Order Form * * *              *
 // *************************************************
 
-// With redux-saga (has side effects)
+// With redux-saga (has side effects = code that is not related to reducers or to actions)
+// Examples: API calls, local storage calls, route changes, etc
 export const PURCHASE_BURGER = 'PURCHASE_BURGER';
 
 export const PURCHASE_BURGER_START = 'PURCHASE_BURGER_START';

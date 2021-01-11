@@ -1,6 +1,5 @@
 import authReducer from "./authReducer";
 import * as actionTypes from '../actions/actionTypes';
-import {AUTH_LOG_OUT} from "../actions/actionTypes";
 
 describe('authReducer', () => {
     const initialState = {
