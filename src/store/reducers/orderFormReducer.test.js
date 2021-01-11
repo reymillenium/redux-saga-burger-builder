@@ -84,7 +84,7 @@ describe('OrderFormReducer', () => {
         })).toEqual(afterPurchaseBurgerSuccessState);
     });
 
-    it('should store the error when an error is found purchasing a burger', () => {
+    it('should set loading in false when an error is found purchasing a burger', () => {
         const afterPurchaseBurgerFailsState = {
             orders: [],
             loading: false,
@@ -99,6 +99,20 @@ describe('OrderFormReducer', () => {
                 error: 'some-error'
             }
         })).toEqual(afterPurchaseBurgerFailsState);
+    });
+
+    it('should set loading in true when it starts fetching the orders', () => {
+        const afterFetchOrdersStartState = {
+            orders: [],
+            loading: true,
+            purchased: false,
+            errors: null
+        };
+
+        // Is not storing the error currently (change it?)
+        expect(OrderFormReducer(initialState, {
+            type: actionTypes.FETCH_ORDERS_START
+        })).toEqual(afterFetchOrdersStartState);
     });
 
 });
