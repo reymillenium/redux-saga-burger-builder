@@ -53,4 +53,37 @@ describe('burgerBuilderReducer', () => {
         })).toEqual(afterAddIngredientState);
     });
 
+    it('should remove an ingredient when pressing the remove button', () => {
+        const beforeAddIngredientState = {
+            ingredients: {
+                salad: 1,
+                cheese: 0,
+                meat: 0,
+                bacon: 0
+            },
+            totalPrice: 4.5,
+            error: false,
+            building: false
+        };
+
+        const afterAddIngredientState = {
+            ingredients: {
+                salad: 0,
+                cheese: 0,
+                meat: 0,
+                bacon: 0
+            },
+            totalPrice: '4.00',
+            error: false,
+            building: true
+        };
+
+        expect(burgerBuilderReducer(beforeAddIngredientState, {
+            type: actionTypes.REMOVE_INGREDIENT,
+            payload: {
+                ingredientName: 'salad'
+            }
+        })).toEqual(afterAddIngredientState);
+    });
+
 });
