@@ -54,7 +54,7 @@ describe('burgerBuilderReducer', () => {
     });
 
     it('should remove an ingredient when pressing the remove button', () => {
-        const beforeAddIngredientState = {
+        const beforeRemoveIngredientState = {
             ingredients: {
                 salad: 1,
                 cheese: 0,
@@ -66,7 +66,7 @@ describe('burgerBuilderReducer', () => {
             building: false
         };
 
-        const afterAddIngredientState = {
+        const afterRemoveIngredientState = {
             ingredients: {
                 salad: 0,
                 cheese: 0,
@@ -78,12 +78,38 @@ describe('burgerBuilderReducer', () => {
             building: true
         };
 
-        expect(burgerBuilderReducer(beforeAddIngredientState, {
+        expect(burgerBuilderReducer(beforeRemoveIngredientState, {
             type: actionTypes.REMOVE_INGREDIENT,
             payload: {
                 ingredientName: 'salad'
             }
-        })).toEqual(afterAddIngredientState);
+        })).toEqual(afterRemoveIngredientState);
+    });
+
+    it('should fetch the initial ingredients from scratch', () => {
+        const afterSetIngredientsState = {
+            ingredients: {
+                salad: 0,
+                cheese: 0,
+                meat: 0,
+                bacon: 0
+            },
+            totalPrice: 4,
+            error: false,
+            building: false
+        };
+
+        expect(burgerBuilderReducer(initialState, {
+            type: actionTypes.SET_INGREDIENTS,
+            payload: {
+                ingredients: {
+                    salad: 0,
+                    cheese: 0,
+                    meat: 0,
+                    bacon: 0
+                }
+            }
+        })).toEqual(afterSetIngredientsState);
     });
 
 });
