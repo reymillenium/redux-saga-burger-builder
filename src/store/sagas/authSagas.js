@@ -1,6 +1,6 @@
 // put is a function. It will dispatch a new action
 // delay: It delays the execution of the next step:
-import {put, delay} from 'redux-saga/effects';
+import {put, delay, call} from 'redux-saga/effects';
 import axios from 'axios';
 
 // import * as actionTypes from "../actions/actionTypes";
@@ -13,9 +13,16 @@ import * as actionCreators from "./../actions/index";
 export function* logOutSaga(action) {
     // yield means that the step will be executed and then it will wait for it to finish
     // In an asynchronous action it wouldn't continue before the step is done (the same here, on a synchronous action)
-    yield localStorage.removeItem('token');
-    yield localStorage.removeItem('expirationDate');
-    yield localStorage.removeItem('localId');
+    // yield localStorage.removeItem('token');
+    // yield localStorage.removeItem('expirationDate');
+    // yield localStorage.removeItem('localId');
+
+    // This makes my generators testable:
+    yield call([localStorage, "removeItem"], 'token');
+    yield call([localStorage, "removeItem"], 'expirationDate');
+    yield call([localStorage, "removeItem"], 'localId');
+
+
     // Hard-coding
     // yield put({
     //     type: actionTypes.AUTH_LOG_OUT
