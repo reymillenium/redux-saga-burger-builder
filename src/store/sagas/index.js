@@ -1,4 +1,4 @@
-import {takeEvery} from 'redux-saga/effects';
+import {takeEvery, all} from 'redux-saga/effects';
 import * as actionTypes from './../actions/actionTypes';
 
 import {
@@ -18,10 +18,18 @@ import {
 } from './orderFormSagas';
 
 export function* watchAuth(action) {
-    yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logOutSaga);
-    yield takeEvery(actionTypes.AUTH_CHECK_TIME_OUT, checkAuthTimeOutSaga);
-    yield takeEvery(actionTypes.AUTH_USER, authUserSaga);
-    yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga);
+    // yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logOutSaga);
+    // yield takeEvery(actionTypes.AUTH_CHECK_TIME_OUT, checkAuthTimeOutSaga);
+    // yield takeEvery(actionTypes.AUTH_USER, authUserSaga);
+    // yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga);
+
+    // Another way of setting up the listeners, using the helper method 'all' this time:
+    yield all([
+        takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logOutSaga),
+        takeEvery(actionTypes.AUTH_CHECK_TIME_OUT, checkAuthTimeOutSaga),
+        takeEvery(actionTypes.AUTH_USER, authUserSaga),
+        takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga)
+    ]);
 }
 
 export function* watchBurgerBuilder(action) {
